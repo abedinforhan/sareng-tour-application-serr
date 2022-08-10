@@ -1,0 +1,18 @@
+{
+  "name": "sareng-tour-application-server",
+  "version": "1.0.0",
+  "main": "server.js",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mongoose": "^6.5.2"
+  },
+  "scripts": {
+    "start:": "nodemon server.js",
+    "start:prod": "NODE-ENV=production nodemon server.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
