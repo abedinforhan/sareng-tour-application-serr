@@ -1,23 +1,29 @@
-const express = require('express')
-const mongoose=require('mongoose')
-const dotenv=require('dotenv')
-const app = express()
+const express = require("express");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const app = express();
 
-dotenv.config({path:'./config.env'});
+app.use(express.json())
 
-const DB=process.env.DATABASE_LOCAL;
+dotenv.config({ path: "./config.env" });
 
-mongoose.connect(DB).then(()=>{
-    console.log('Connecting to databse is successful');
-})
+const DB = process.env.DATABASE_LOCAL;
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+mongoose.connect(DB).then(() => {
+  console.log("Connecting to databse is successful");
+});
+
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+
+//routers
+const tourRoute=require('./routes/tourRoute')
+
+app.use('/api/v1/tour' ,tourRoute )
 
 
-
-const port=process.env.PORT || 4000
+const port = process.env.PORT || 4000;
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+  console.log(`Example app listening on port ${port}`);
+});
