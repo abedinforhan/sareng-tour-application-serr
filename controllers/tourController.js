@@ -3,7 +3,22 @@ const Tour = require('../model/tourModel')
 
 exports.getAllTours = async (req, res) => {
     try {
-        const tours = await Tour.find({})
+        //1.filtering and exclude query parameters
+        const queryObj={...req.query};
+        const excludeFields=['page','sort','limit','fields'];
+        excludeFields.forEach(field=>delete queryObj[field]);
+       
+        let queryString=JSON.stringify(queryObj);
+        queryString=queryString.replace(/\b(gt|gte|lt|lte\b)/g,match=>`$${match}`);
+        const filter=JSON.parse(queryString);
+
+        //2. advance iltring 
+        //{ duration: { gte: '5' }, difficulty: 'easy' } what we are getting
+        //{ duration: { $gte: '5' }, difficulty: 'easy' } what we need to do mongoDB
+        //gte,gt,lt,lte
+
+
+        const tours = await Tour.find(filter);
         res.status(200).json({
             status: 'success',
             count: tours.length,

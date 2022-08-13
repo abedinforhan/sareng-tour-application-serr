@@ -1,11 +1,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+dotenv.config({ path: "./config.env" }); 
+mongoose.set('strictQuery', false);
+
+
 const app = express();
 
 app.use(express.json())
 
-dotenv.config({ path: "./config.env" });
+
 
 const DB = process.env.DATABASE_LOCAL;
 
